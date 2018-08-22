@@ -30,77 +30,8 @@ TEST_CASE("Variable Length Array") {
     REQUIRE(err == DeserializationError::Ok);
   }
 
-  SECTION("JsonVariant") {
-    DynamicJsonDocument doc;
-
-    SECTION("set()") {
-      int i = 16;
-      char vla[i];
-      strcpy(vla, "42");
-
-      JsonVariant variant = doc.to<JsonVariant>();
-      variant.set(vla);
-
-      REQUIRE(42 == variant.as<int>());
-    }
-
-#ifndef CONFLICTS_WITH_BUILTIN_OPERATOR
-    SECTION("operator[]") {
-      int i = 16;
-      char vla[i];
-      strcpy(vla, "hello");
-
-      deserializeJson(doc, "{\"hello\":\"world\"}");
-      JsonVariant variant = doc.as<JsonVariant>();
-
-      REQUIRE(std::string("world") == variant[vla]);
-    }
-#endif
-
-#ifndef CONFLICTS_WITH_BUILTIN_OPERATOR
-    SECTION("operator[] const") {
-      int i = 16;
-      char vla[i];
-      strcpy(vla, "hello");
-
-      deserializeJson(doc, "{\"hello\":\"world\"}");
-      const JsonVariant variant = doc.as<JsonVariant>();
-
-      REQUIRE(std::string("world") == variant[vla]);
-    }
-#endif
-
-    SECTION("operator==") {
-      int i = 16;
-      char vla[i];
-      strcpy(vla, "hello");
-
-      JsonVariant variant = doc.to<JsonVariant>();
-      variant.set("hello");
-
-      REQUIRE((vla == variant));
-      REQUIRE((variant == vla));
-      REQUIRE_FALSE((vla != variant));
-      REQUIRE_FALSE((variant != vla));
-    }
-
-    SECTION("operator!=") {
-      int i = 16;
-      char vla[i];
-      strcpy(vla, "hello");
-
-      JsonVariant variant;
-      variant.set("world");
-
-      REQUIRE((vla != variant));
-      REQUIRE((variant != vla));
-      REQUIRE_FALSE((vla == variant));
-      REQUIRE_FALSE((variant == vla));
-    }
-  }
-
   SECTION("JsonObject") {
-#ifndef CONFLICTS_WITH_BUILTIN_OPERATOR
+#ifndef SUBSCRIPT_CONFLICTS_WITH_BUILTIN_OPERATOR
     SECTION("operator[]") {
       int i = 16;
       char vla[i];
@@ -114,7 +45,7 @@ TEST_CASE("Variable Length Array") {
     }
 #endif
 
-#ifndef CONFLICTS_WITH_BUILTIN_OPERATOR
+#ifndef SUBSCRIPT_CONFLICTS_WITH_BUILTIN_OPERATOR
     SECTION("operator[] const") {
       int i = 16;
       char vla[i];

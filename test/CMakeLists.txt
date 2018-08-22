@@ -57,7 +57,10 @@ if(CMAKE_CXX_COMPILER_ID MATCHES "Clang")
 		-Wdeprecated-register
 		-Wno-vla-extension # Allow VLA in tests
 	)
-	add_definitions(-DHAS_VARIABLE_LENGTH_ARRAY)
+	add_definitions(
+		-DHAS_VARIABLE_LENGTH_ARRAY
+		-DSUBSCRIPT_CONFLICTS_WITH_BUILTIN_OPERATOR
+	)
 endif()
 
 if(MSVC)
