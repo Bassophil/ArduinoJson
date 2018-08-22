@@ -144,21 +144,10 @@ class JsonVariant : public Internals::JsonVariantBase<JsonVariant> {
   }
 
   // set(const char*);
-  // set(const char[n]); // VLA
   bool set(const char *value) {
     if (!_data) return false;
     _data->setString(value);
     return true;
-  }
-  // set(const unsigned char*);
-  // set(const unsigned char[n]); // VLA
-  bool set(const unsigned char *value) {
-    return set(reinterpret_cast<const char *>(value));
-  }
-  // set(const signed char*);
-  // set(const signed char[n]); // VLA
-  bool set(const signed char *value) {
-    return set(reinterpret_cast<const char *>(value));
   }
 
   bool set(const JsonVariant &value) {

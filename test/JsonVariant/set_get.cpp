@@ -183,15 +183,18 @@ TEST_CASE("JsonVariant and strings") {
     REQUIRE(variant == "hello");
   }
 
-  /*    SECTION("stores VLA by copy") {
-      char str[16];
+#ifdef HAS_VARIABLE_LENGTH_ARRAY
+  SECTION("stores VLA by copy") {
+    int n = 16;
+    char str[n];
 
-      strcpy(str, "hello");
-      variant.set(reinterpret_cast<signed char *>(str));
-      strcpy(str, "world");
+    strcpy(str, "hello");
+    variant.set(str);
+    strcpy(str, "world");
 
-      REQUIRE(variant == "hello");
-    }*/
+    REQUIRE(variant == "hello");
+  }
+#endif
 
   SECTION("stores std::string by copy") {
     std::string str;

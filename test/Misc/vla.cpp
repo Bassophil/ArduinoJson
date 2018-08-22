@@ -5,16 +5,7 @@
 #include <ArduinoJson.h>
 #include <catch.hpp>
 
-#if defined(__clang__)
-#pragma clang diagnostic ignored "-Wvla-extension"
-#define CONFLICTS_WITH_BUILTIN_OPERATOR
-#elif defined(__GNUC__)
-#pragma GCC diagnostic ignored "-Wvla"
-#else
-#define VLA_NOT_SUPPORTED
-#endif
-
-#ifndef VLA_NOT_SUPPORTED
+#ifdef HAS_VARIABLE_LENGTH_ARRAY
 
 TEST_CASE("Variable Length Array") {
   SECTION("deserializeJson()") {
