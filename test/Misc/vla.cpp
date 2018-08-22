@@ -59,41 +59,6 @@ TEST_CASE("Variable Length Array") {
     }
 #endif
 
-    SECTION("remove()") {
-      int i = 16;
-      char vla[i];
-      strcpy(vla, "hello");
-
-      DynamicJsonDocument doc;
-      deserializeJson(doc, "{\"hello\":\"world\"}");
-      JsonObject obj = doc.as<JsonObject>();
-      obj.remove(vla);
-
-      REQUIRE(0 == obj.size());
-    }
-
-    SECTION("is<T>()") {
-      int i = 16;
-      char vla[i];
-      strcpy(vla, "hello");
-
-      DynamicJsonDocument doc;
-      deserializeJson(doc, "{\"hello\":42}");
-      JsonObject obj = doc.as<JsonObject>();
-
-      REQUIRE(true == obj.is<int>(vla));
-    }
-
-    SECTION("createNestedArray()") {
-      int i = 16;
-      char vla[i];
-      strcpy(vla, "hello");
-
-      DynamicJsonDocument doc;
-      JsonObject obj = doc.to<JsonObject>();
-      obj.createNestedArray(vla);
-    }
-
     SECTION("createNestedObject()") {
       int i = 16;
       char vla[i];
