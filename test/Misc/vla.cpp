@@ -18,16 +18,5 @@ TEST_CASE("Variable Length Array") {
 
     REQUIRE(err == DeserializationError::Ok);
   }
-
-  SECTION("deserializeMsgPack()") {
-    int i = 16;
-    char vla[i];
-    memcpy(vla, "\xDE\x00\x01\xA5Hello\xA5world", 15);
-
-    StaticJsonDocument<JSON_OBJECT_SIZE(1)> doc;
-    DeserializationError err = deserializeMsgPack(doc, vla);
-
-    REQUIRE(err == DeserializationError::Ok);
-  }
 }
 #endif
