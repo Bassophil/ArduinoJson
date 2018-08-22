@@ -71,42 +71,6 @@ TEST_CASE("Variable Length Array") {
       REQUIRE(std::string("world") == obj.get<char*>(vla));
     }
 
-    SECTION("set() key") {
-      int i = 16;
-      char vla[i];
-      strcpy(vla, "hello");
-
-      DynamicJsonDocument doc;
-      JsonObject obj = doc.to<JsonObject>();
-      obj.set(vla, "world");
-
-      REQUIRE(std::string("world") == obj["hello"]);
-    }
-
-    SECTION("set() value") {
-      int i = 16;
-      char vla[i];
-      strcpy(vla, "world");
-
-      DynamicJsonDocument doc;
-      JsonObject obj = doc.to<JsonObject>();
-      obj.set("hello", vla);
-
-      REQUIRE(std::string("world") == obj["hello"]);
-    }
-
-    SECTION("set() key&value") {
-      int i = 16;
-      char vla[i];
-      strcpy(vla, "world");
-
-      DynamicJsonDocument doc;
-      JsonObject obj = doc.to<JsonObject>();
-      obj.set(vla, vla);
-
-      REQUIRE(std::string("world") == obj["world"]);
-    }
-
     SECTION("containsKey()") {
       int i = 16;
       char vla[i];
