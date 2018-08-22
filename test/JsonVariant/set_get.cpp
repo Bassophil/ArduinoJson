@@ -163,8 +163,46 @@ TEST_CASE("JsonVariant and strings") {
     REQUIRE(variant == "hello");
   }
 
-  // TODO: vla
+  SECTION("stores unsigned char* by copy") {
+    char str[16];
+
+    strcpy(str, "hello");
+    variant.set(reinterpret_cast<unsigned char *>(str));
+    strcpy(str, "world");
+
+    REQUIRE(variant == "hello");
+  }
+
+  SECTION("stores signed char* by copy") {
+    char str[16];
+
+    strcpy(str, "hello");
+    variant.set(reinterpret_cast<signed char *>(str));
+    strcpy(str, "world");
+
+    REQUIRE(variant == "hello");
+  }
+
+  /*    SECTION("stores VLA by copy") {
+      char str[16];
+
+      strcpy(str, "hello");
+      variant.set(reinterpret_cast<signed char *>(str));
+      strcpy(str, "world");
+
+      REQUIRE(variant == "hello");
+    }*/
+
+  SECTION("stores std::string by copy") {
+    std::string str;
+
+    str = "hello";
+    variant.set(str);
+    str.replace(0, 5, "world");
+
+    REQUIRE(variant == "hello");
+  }
+
   // TODO: string
   // TODO: serialized()
-  // TODO: unsigned char
 }
