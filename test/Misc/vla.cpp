@@ -191,33 +191,6 @@ TEST_CASE("Variable Length Array") {
     }
   }
 
-  SECTION("JsonArray") {
-    SECTION("add()") {
-      int i = 16;
-      char vla[i];
-      strcpy(vla, "world");
-
-      DynamicJsonDocument doc;
-      JsonArray arr = doc.to<JsonArray>();
-      arr.add(vla);
-
-      REQUIRE(std::string("world") == arr[0]);
-    }
-
-    SECTION("set()") {
-      int i = 16;
-      char vla[i];
-      strcpy(vla, "world");
-
-      DynamicJsonDocument doc;
-      JsonArray arr = doc.to<JsonArray>();
-      arr.add("hello");
-      arr.set(0, vla);
-
-      REQUIRE(std::string("world") == arr[0]);
-    }
-  }
-
   SECTION("JsonArraySubscript") {
     SECTION("set()") {
       int i = 16;
