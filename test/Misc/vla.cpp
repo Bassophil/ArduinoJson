@@ -59,30 +59,6 @@ TEST_CASE("Variable Length Array") {
     }
 #endif
 
-    SECTION("get()") {
-      int i = 16;
-      char vla[i];
-      strcpy(vla, "hello");
-
-      DynamicJsonDocument doc;
-      deserializeJson(doc, "{\"hello\":\"world\"}");
-
-      JsonObject obj = doc.as<JsonObject>();
-      REQUIRE(std::string("world") == obj.get<char*>(vla));
-    }
-
-    SECTION("containsKey()") {
-      int i = 16;
-      char vla[i];
-      strcpy(vla, "hello");
-
-      DynamicJsonDocument doc;
-      deserializeJson(doc, "{\"hello\":\"world\"}");
-
-      JsonObject obj = doc.as<JsonObject>();
-      REQUIRE(true == obj.containsKey(vla));
-    }
-
     SECTION("remove()") {
       int i = 16;
       char vla[i];
