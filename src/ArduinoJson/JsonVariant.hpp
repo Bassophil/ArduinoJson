@@ -127,6 +127,22 @@ class JsonVariant : public Internals::JsonVariantBase<JsonVariant> {
     }
   }
 
+  // set(char*)
+  template <typename T>
+  bool set(T *value,
+           typename Internals::enable_if<Internals::IsString<T *>::value>::type
+               * = 0) {
+    if (!_data) return false;
+    const char *dup = Internals::makeString(value).save(_buffer);
+    if (dup) {
+      _data->setString(dup);
+      return true;
+    } else {
+      _data->setNull();
+      return false;
+    }
+  }
+
   // set(const char*);
   // set(const char[n]); // VLA
   bool set(const char *value) {

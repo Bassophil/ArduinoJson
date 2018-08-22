@@ -138,3 +138,33 @@ TEST_CASE("JsonVariant set()/get()") {
     checkValue<JsonObject>(object);
   }
 }
+
+TEST_CASE("JsonVariant and strings") {
+  DynamicJsonDocument doc;
+  JsonVariant variant = doc.to<JsonVariant>();
+
+  SECTION("stores const char* by reference") {
+    char str[16];
+
+    strcpy(str, "hello");
+    variant.set(static_cast<const char *>(str));
+    strcpy(str, "world");
+
+    REQUIRE(variant == "world");
+  }
+
+  SECTION("stores char* by copy") {
+    char str[16];
+
+    strcpy(str, "hello");
+    variant.set(str);
+    strcpy(str, "world");
+
+    REQUIRE(variant == "hello");
+  }
+
+  // TODO: vla
+  // TODO: string
+  // TODO: serialized()
+  // TODO: unsigned char
+}
